@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+  <main id="main" class="main">
+    <div class="messages">
+      {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+            <div class="message alert alert-{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+      <div class="pagetitle">
+        <h1>Events</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="index.html">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Events</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+      <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+              <!-- Default Card -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ event.title }}</h5>
+                  <p>
+                    <span class="text-muted">Description: </span>{{ event.description }}
+                  </p>
+                  <p>
+                    <span class="text-muted">Location: </span>{{ event.location }}
+                  </p>
+                  <p>
+                    <span class="text-muted">Date: </span>{{ event.date }}
+                  </p>
+                  <p>
+                    <span class="text-muted">Time: </span>{{ event.time }}
+                  </p>
+
+                  {% if is_registered %}
+                      <button type="submit" class="btn btn-danger btn-block float-end" data-bs-toggle="modal" data-bs-target="#comfimModal">Cancel Registration</button>
+                      <div class="modal fade" id="comfimModal" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Cancel Event Registration</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">Are you sure you want to cancel?</div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <form action="{% url 'events:cancel_registration' event.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  {% else %}
+                    <form action="{% url 'events:event_registration' event.id %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-primary btn-block float-end">Register</button>
+                    </form>
+                  {% endif %}
+                </div>
+              </div>
+              <!-- End Default Card -->
+            </div>
+        </div>
+      </div>
+  </main>
+  <!-- End #main -->
+{% endblock %}
