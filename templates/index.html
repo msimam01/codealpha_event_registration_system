@@ -19,7 +19,7 @@
         <div class="col-lg-12">
           <div class="row">
             <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-4">
+            <div class="col-xxl-4 col-md-6">
               <div class="card info-card sales-card">
                 <div class="card-body">
                   <h5 class="card-title">Total Users</h5>
@@ -28,8 +28,8 @@
                       <i class="bi bi-person-plus-fill"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <h6>{{ users }}</h6>
+                      {% comment %} <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> {% endcomment %}
                     </div>
                   </div>
                 </div>
@@ -38,7 +38,7 @@
             <!-- End Sales Card -->
 
             <!-- Revenue Card -->
-            <div class="col-xxl-4 col-md-4">
+            <div class="col-xxl-4 col-md-6">
               <div class="card info-card revenue-card">
                 <div class="card-body">
                   <h5 class="card-title">Total Events</h5>
@@ -47,34 +47,14 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <h6>{{ events }}</h6>
+                      {% comment %} <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> {% endcomment %}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <!-- End Revenue Card -->
-
-            <!-- Customers Card -->
-            <div class="col-xxl-4 col-xl-4">
-              <div class="card info-card customers-card">
-                <div class="card-body">
-                  <h5 class="card-title">Event Registered</h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Customers Card -->
 
             <!-- Reports -->
             <div class="col-12">
@@ -109,17 +89,14 @@
                       new ApexCharts(document.querySelector('#reportsChart'), {
                         series: [
                           {
-                            name: 'Sales',
+                            name: 'Users',
                             data: [31, 40, 28, 51, 42, 82, 56]
                           },
                           {
-                            name: 'Revenue',
+                            name: 'Events',
                             data: [11, 32, 45, 32, 34, 52, 41]
                           },
-                          {
-                            name: 'Customers',
-                            data: [15, 11, 32, 18, 9, 24, 11]
-                          }
+                          
                         ],
                         chart: {
                           height: 350,
@@ -131,7 +108,7 @@
                         markers: {
                           size: 4
                         },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                        colors: ['#4154f1', '#2eca6a'],
                         fill: {
                           type: 'gradient',
                           gradient: {
