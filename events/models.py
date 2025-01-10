@@ -16,7 +16,7 @@ class Event(models.Model):
 class EventRegistration(models.Model):
     user = models.ForeignKey(to=User, related_name='user', on_delete=models.CASCADE)
     event = models.ForeignKey(to=Event, related_name='event', on_delete=models.CASCADE)
-    registration_date = models.DateTimeField(auto_now_add=True)
+    registration_date = models.DateField(auto_now_add=True)
     
     def __str__(self):
         return f"{self.user.username} registered for {self.event}"

@@ -19,12 +19,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from event_management_system.views import home
+from event_management_system.views import home, profile, change_password
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', home, name='home'),
+    path('profile/', profile, name='profile'),
+    path('password-change/', change_password, name='change_password'),
     path('accounts/', include('allauth.urls')),
     path('events/', include('events.urls')),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
