@@ -1,15 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
   <main id="main" class="main">
-    <div class="messages">
-      {% if messages %}
-        <div class="messages">
-          {% for message in messages %}
-            <div class="message alert alert-{{ message.tags }}">{{ message }}</div>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div>
     {% if user.is_superuser %}
       <div class="pagetitle">
         <a href="{% url 'events:create' %}" class="btn btn-primary float-end">Create new event</a>
