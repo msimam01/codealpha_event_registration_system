@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from events.models import Event, EventRegistration
 from events.forms import EventForm
 from django.contrib import messages
+from django.core.mail import send_mail
 
 # Create your views here.
 @login_required(login_url='/accounts/login')
@@ -65,8 +66,30 @@ def event_registration(request, event_id):
         Users event registration
     """
     event = get_object_or_404(Event, id=event_id)
-    EventRegistration.objects.get_or_create(user=request.user, event=event)
+    
+    # check if user is already registered for the event
+    if EventRegistration.objects.filter(user=request.user, event=event).exists():
+        messages.warning(request, "You have already registered for this event.")
+        return redirect("events:event_detail", event_id=event.id)
+    
+    # register the user
+    registration = EventRegistration.objects.get_or_create(user=request.user, event=event)
+    
+    # send email to the user 
+    subject = f"Event Registration Confirmation - {event.title}"
+    message = f"Hello {request.user.username},\n\nYou have successfully registered for {event.title} happening on {event.date}. We look forward to seeing you!\n\nBest regards,\nEvent Management Team"
+    
+    send_mail(
+        subject,
+        message,
+        'mubaraksalisuimam22@gmail.com',
+        [request.user.email],
+        fail_silently=False,   
+    )
+    
+    messages.success(request, 'You have successfully registered for the event. A confirmation email has been sent.')
     return redirect('events:event_detail', event_id=event_id)
+
 
 @login_required(login_url='/accounts/login')
 def cancel_registration(request, event_id):
